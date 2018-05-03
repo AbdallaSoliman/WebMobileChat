@@ -1,0 +1,158 @@
+<html class="ui-mobile"><head>
+        <!--<base href="http://pubnub-demo.s3.amazonaws.com/examples/mobile-chat/mobile-chat.html">-->
+        <title>abdalla Chat</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+
+        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="initial-scale=1.0">
+        <meta name="viewport" content="user-scalable=no">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">  
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="apple-touch-icon" href="http://pubnub-demo.s3.amazonaws.com/examples/mobile-chat/mobile-chat.html/icon.png">
+        <link rel="apple-touch-startup-image" href="http://pubnub-demo.s3.amazonaws.com/examples/mobile-chat/mobile-chat.html/startup.png">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css">
+        <!--abdalla-->
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <script type="text/javascript"
+                src="http://code.jquery.com/jquery-1.11.3.min.js">
+        </script>
+
+        <script type="text/javascript"
+                src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js">
+
+        </script>
+
+<!--        <link rel="stylesheet" href="http://pubnub-demo.s3.amazonaws.com/examples/mobile-chat/mobile-chat.html/css/themes/contactList.css" />
+        <link rel="stylesheet" href="http://pubnub-demo.s3.amazonaws.com/examples/mobile-chat/mobile-chat.html/css/themes/contactList.min.css" />
+        <link rel="stylesheet" href="http://pubnub-demo.s3.amazonaws.com/examples/mobile-chat/mobile-chat.html/css/themes/jquery.mobile.icons.min.css" />-->
+<!--        <script src ="js/Admin.js" ></script>
+        <script src ="js/lab1.js" ></script>-->
+        <!--abdalla-->
+        <style>
+            .message {
+                padding: 5px 5px 5px 5px;
+            }
+            .username {
+                font-weight: strong;
+                color: #0f0;
+            }
+            .msgContainerDiv {
+                overflow-y: scroll;
+                height: 250px;
+            }
+        </style>
+    </head>
+    <body class="ui-mobile-viewport">
+
+        <div   data-role="page" id="loginPage" data-theme="a" data-url="loginPage" tabindex="0" class="ui-page ui-body-a" style="min-height: 759px;">
+            <div data-role="header" class="ui-header ui-bar-a" role="banner">
+                <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">abdalla Chat</h1>
+            </div>
+
+            <div data-role="content" class="ui-content" role="main">
+                <div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+                    <label for="chatNameText" class="ui-input-text"><strong>your Name:</strong></label>
+                    <input type="text" name="chatNameText" id="chatNameText" value="" class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset">
+                    <div data-theme="a" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-a" aria-disabled="false"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text"></span></span><button id="chatNameButton" class="ui-btn-hidden" aria-disabled="false"></button></div>
+                </div>
+            </div>
+
+            <div data-role="footer" class="ui-footer ui-bar-a" role="contentinfo">
+                <h4 class="ui-title" tabindex="0" role="heading" aria-level="1">abdalla Chat</h4>
+            </div>
+        </div>
+
+        <div data-role="page" id="chatPage" data-theme="a" data-url="chatPage" class="ui-page ui-body-a " style="min-height: 640px;">
+
+            <div data-role="header" class="ui-header ui-bar-a" role="banner">
+                <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">abdalla Chat</h1>
+            </div>
+
+            <div data-role="content" class="ui-content" role="main">
+                <div id="incomingMessages" name="incomingMessages" class="msgContainerDiv">
+                    <div class="message"><span class="username">abdalla</span> : asdfasdf</div>
+                    <div class="message"><span class="username">afadsf</span> : asdf</div>
+                    <div class="message"><span class="username">aa</span> : sdfasdf</div>
+                    <div class="message"><span class="username">aadsadf</span> : aefasdfsdfa</div>
+                </div>
+                <label for="messageText" class="ui-input-text"><strong>Message:</strong></label>
+                <textarea id="messageText" class="ui-input-text ui-body-a ui-corner-all ui-shadow-inset"></textarea>
+
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#loginPage" id="goBackButton" data-role="button" data-theme="a" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-a">
+                            <span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"
+                                  <span class="ui-btn-text">Go Back</span></span></a></div>
+                    <div class="ui-block-b"><div data-theme="a" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-a" aria-disabled="false"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text">Send
+                                </span></span><input type="hidden" name="chatSendButton" value="">
+                            <button data-theme="a" id="chatSendButton" name="chatSendButton" class="ui-btn-hidden" aria-disabled="false">Send
+                            </button></div></div></fieldset>
+            </div>
+
+            <div data-role="footer" class="ui-footer ui-bar-a" role="contentinfo">
+                <h4 class="ui-title" tabindex="0" role="heading" aria-level="1">abdalla Chat</h4>
+            </div>
+        </div>
+
+
+        <div id="pubnub" pub-key="demo" sub-key="demo" style="position: absolute; top: -1000px;"></div>
+        <!--        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+                <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+                <script src="../../web/pubnub.min.js"></script>-->
+<!--        <script>$(document).ready(function () {
+
+                var chatName = ""
+                        , channel = "mobile-chat";
+
+                PUBNUB.subscribe({
+                    channel: channel,
+                    callback: function (message) {
+                        $("#incomingMessages").append(
+                                "<div class='message'><span class='username'>" +
+                                (message.chatName || 'Anonymous') +
+                                "</span> : " +
+                                (message.text || ' ') +
+                                "</div>"
+                                );
+                        $("#incomingMessages").scrollTop(
+                                $("#incomingMessages")[0].scrollHeight
+                                );
+                    }
+                });
+
+                $("#chatNameButton").click(function () {
+                    chatName = $("#chatNameText").val();
+                    if (chatName.length <= 0)
+                        chatName = "unknown";
+                    $(location).attr('href', "#chatPage");
+                });
+
+                $("#messageText").bind('keydown', function (e) {
+                    if ((e.keyCode || e.charCode) !== 13)
+                        return true;
+                    $("#chatSendButton").click();
+                    return false;
+                });
+
+                $("#chatSendButton").click(function () {
+                    PUBNUB.publish({
+                        channel: channel,
+                        message: {
+                            chatName: chatName,
+                            text: $("#messageText").val()
+                        }
+                    });
+                    $("#messageText").val("");
+                });
+
+            });</script>-->
+
+
+        <div class="ui-loader ui-body-a ui-corner-all" style="top: 379.5px;">
+            <span class="ui-icon ui-icon-loading spin"></span><h1>loading</h1>
+        </div>
+    </body>
+</html>
